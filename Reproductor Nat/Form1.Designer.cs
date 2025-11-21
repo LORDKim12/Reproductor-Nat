@@ -33,8 +33,10 @@
             axWindowsMediaPlayer2 = new AxWMPLib.AxWindowsMediaPlayer();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
-            listBox1 = new ListBox();
+            btnSiguiente = new Button();
+            btnAnterior = new Button();
             btnCarpeta = new Button();
+            listBox1 = new ListBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)axWindowsMediaPlayer2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -69,12 +71,44 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(btnSiguiente);
+            panel2.Controls.Add(btnAnterior);
             panel2.Controls.Add(btnCarpeta);
             panel2.Controls.Add(listBox1);
             panel2.Location = new Point(12, 12);
             panel2.Name = "panel2";
             panel2.Size = new Size(227, 426);
             panel2.TabIndex = 1;
+            // 
+            // btnSiguiente
+            // 
+            btnSiguiente.Location = new Point(112, 390);
+            btnSiguiente.Name = "btnSiguiente";
+            btnSiguiente.Size = new Size(94, 29);
+            btnSiguiente.TabIndex = 5;
+            btnSiguiente.Text = "Siguiente";
+            btnSiguiente.UseVisualStyleBackColor = true;
+            btnSiguiente.Click += btnSiguiente_Click;
+            // 
+            // btnAnterior
+            // 
+            btnAnterior.Location = new Point(3, 390);
+            btnAnterior.Name = "btnAnterior";
+            btnAnterior.Size = new Size(103, 29);
+            btnAnterior.TabIndex = 4;
+            btnAnterior.Text = "Anterior";
+            btnAnterior.UseVisualStyleBackColor = true;
+            btnAnterior.Click += btnAnterior_Click;
+            // 
+            // btnCarpeta
+            // 
+            btnCarpeta.Location = new Point(0, 350);
+            btnCarpeta.Name = "btnCarpeta";
+            btnCarpeta.Size = new Size(94, 29);
+            btnCarpeta.TabIndex = 3;
+            btnCarpeta.Text = "Cargar";
+            btnCarpeta.UseVisualStyleBackColor = true;
+            btnCarpeta.Click += btnCarpeta_Click;
             // 
             // listBox1
             // 
@@ -83,16 +117,7 @@
             listBox1.Name = "listBox1";
             listBox1.Size = new Size(224, 344);
             listBox1.TabIndex = 2;
-            // 
-            // btnCarpeta
-            // 
-            btnCarpeta.Location = new Point(3, 369);
-            btnCarpeta.Name = "btnCarpeta";
-            btnCarpeta.Size = new Size(94, 29);
-            btnCarpeta.TabIndex = 3;
-            btnCarpeta.Text = "Cargar";
-            btnCarpeta.UseVisualStyleBackColor = true;
-            btnCarpeta.Click += btnCarpeta_Click;
+            listBox1.SelectedIndexChanged += listBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -119,5 +144,7 @@
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer2;
         private PictureBox pictureBox1;
         private Button btnCarpeta;
+        private Button btnSiguiente;
+        private Button btnAnterior;
     }
 }

@@ -13,9 +13,13 @@ namespace Reproductor_Nat
 
         public Form1()
         {
-            InitializeComponent(); // Aquí se crea el pictureBox1 automáticamente
+            InitializeComponent();
 
-            // Configuración inicial extra si la necesitas
+            // --- AGREGA ESTA LÍNEA PARA QUE FUNCIONEN LOS CLICS ---
+            listBox1.DoubleClick += ListBox1_DoubleClick;
+            // ------------------------------------------------------
+
+            // Configuración inicial del PictureBox
             pictureBox1.Visible = false;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
         }
@@ -42,33 +46,35 @@ namespace Reproductor_Nat
 
         private void ListBox1_DoubleClick(object sender, EventArgs e)
         {
+            ReproducirSeleccionado();
+        }
+        private void ReproducirSeleccionado()
+        {
             if (listBox1.SelectedIndex == -1) return;
 
             string ruta = listaRutas[listBox1.SelectedIndex];
             string extension = Path.GetExtension(ruta).ToLower();
 
-            // FÁBRICA:
-            if (extension == ".mp3" || extension == ".wav")
+            // --- FÁBRICA (Tu lógica actual) ---
+            if (extension == ".mp3" || extension == ".wav" || extension == ".wma")
             {
-                // Pasamos el pictureBox1 que ya existe en el formulario
                 reproductorActual = new Musica(axWindowsMediaPlayer2, pictureBox1);
             }
-            else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv")
+            else if (extension == ".mp4" || extension == ".avi" || extension == ".mkv" || extension == ".mov")
             {
                 reproductorActual = new Video(axWindowsMediaPlayer2, pictureBox1);
             }
-            else if (extension == ".jpg" || extension == ".png" || extension == ".jpeg")
+            else if (extension == ".jpg" || extension == ".png" || extension == ".jpeg" || extension == ".bmp")
             {
                 reproductorActual = new Imagen(axWindowsMediaPlayer2, pictureBox1);
             }
 
-            // POLIMORFISMO:
+            // --- EJECUCIÓN POLIMÓRFICA ---
             if (reproductorActual != null)
             {
                 reproductorActual.Reproducir(ruta);
             }
         }
-
         private void btnCarpeta_Click(object sender, EventArgs e)
         {
             // 1. Crear el diálogo para seleccionar carpetas
@@ -97,6 +103,37 @@ namespace Reproductor_Nat
                         }
                     }
                 }
+            }
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            // Verificamos que haya algo seleccionado y que no sea el último de la lista
+            if (listBox1.Items.Count > 0 && listBox1.SelectedIndex < listBox1.Items.Count - 1)
+            {
+                listBox1.SelectedIndex++; // Avanzamos el índice
+                ReproducirSeleccionado(); // Reproducimos el nuevo índice
+            }
+            else if (listBox1.Items.Count > 0 && listBox1.SelectedIndex == listBox1.Items.Count - 1)
+            {
+                // Opcional: Volver al principio si es el último (Loop)
+                listBox1.SelectedIndex = 0;
+                ReproducirSeleccionado();
+            }
+        }
+
+        private void btnAnterior_Click(object sender, EventArgs e)
+        {
+            // Verificamos que no estemos ya en el primero
+            if (listBox1.SelectedIndex > 0)
+            {
+                listBox1.SelectedIndex--; // Retrocedemos el índice
+                ReproducirSeleccionado();
             }
         }
     }
