@@ -5,11 +5,13 @@ using System.Text;
 
 namespace Reproductor_Nat
 {
-    internal class Imagen : Reproductor // Asegúrate de agregar ": Reproductor"
+    // Clase para ver fotos
+    internal class Imagen : Reproductor
     {
         private PictureBox _pb;
         private AxWindowsMediaPlayer _wmp;
 
+        // Recibo los controles del formulario
         public Imagen(AxWindowsMediaPlayer wmp, PictureBox pb)
         {
             _wmp = wmp;
@@ -18,25 +20,26 @@ namespace Reproductor_Nat
 
         public void Reproducir(string ruta)
         {
-            // 1. Detener cualquier audio/video que estuviera sonando
+            // Paro la musica si habia algo sonando
             _wmp.Ctlcontrols.stop();
 
-            // 2. EL TRUCO: Ocultar el WMP y mostrar el PictureBox
+            // Oculto el video y muestro la foto
             _wmp.Visible = false;
             _pb.Visible = true;
 
-            // 3. Cargar la imagen
+            // cargo la imagen
             _pb.ImageLocation = ruta;
-            _pb.SizeMode = PictureBoxSizeMode.Zoom;
         }
 
         public void Detener()
         {
-            _pb.Image = null; // Limpiamos la imagen
+            _pb.Image = null;
             _pb.Visible = false;
         }
 
-        // Las imágenes no se pausan, así que dejamos el método vacío o lanzamos excepción controlada
-        public void Pausar() { }
+        public void Pausar()
+        {
+            // Las imagenes no se pausan, asi que no hago nada
+        }
     }
 }

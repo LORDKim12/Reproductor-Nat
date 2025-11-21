@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Reproductor_Nat
 {
-    internal class Video : Reproductor // Asegúrate de agregar ": Reproductor"
+    // Clase para audio
+    internal class Video : Reproductor
     {
         private AxWindowsMediaPlayer _wmp;
         private PictureBox _pb;
@@ -18,16 +19,23 @@ namespace Reproductor_Nat
 
         public void Reproducir(string ruta)
         {
-            // 1. EL TRUCO INVERSO: Ocultar la foto y mostrar el WMP
+            // Oculto la foto y muestro el reproductor
             _pb.Visible = false;
             _wmp.Visible = true;
 
-            // 2. Reproducir el medio
+            // Le mando el archivo al WMP y le doy play
             _wmp.URL = ruta;
             _wmp.Ctlcontrols.play();
         }
 
-        public void Pausar() => _wmp.Ctlcontrols.pause();
-        public void Detener() => _wmp.Ctlcontrols.stop();
+        public void Pausar()
+        {
+            _wmp.Ctlcontrols.pause();
+        }
+
+        public void Detener()
+        {
+            _wmp.Ctlcontrols.stop();
+        }
     }
 }
